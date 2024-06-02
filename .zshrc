@@ -79,6 +79,9 @@ alias ls='ls --color'
 alias vim='nvim'
 alias c='clear'
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # Shell integrations
-eval "$(fzf --zsh)"
+source <(fzf --zsh)
+# eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
