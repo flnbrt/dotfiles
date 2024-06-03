@@ -63,6 +63,9 @@ format = '[$ssh_symbol](bold blue)on [$hostname](bold red) '
 trim_at = '.'
 disabled = false
 
+[username]
+disabled = true
+
 [java]
 symbol = " "
 
