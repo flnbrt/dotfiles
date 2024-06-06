@@ -44,6 +44,10 @@ zinit snippet OMZP::kubectl
 zinit snippet OMZP::kubectx
 zinit snippet OMZP::command-not-found
 zinit snippet OMZP::thefuck
+zinit snippet OMZP::1password
+zinit snippet OMZP::docker
+zinit snippet OMZP::docker-compose
+zinit snippet OMZP::terraform
 
 # Load completions
 autoload -Uz compinit && compinit
