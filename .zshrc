@@ -20,20 +20,21 @@ if [ ! -d "$ZINIT_HOME" ]; then
    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
-# Source/Load zinit
-source "${ZINIT_HOME}/zinit.zsh"
 
-# Starship.rs
+# Download and install Oh-My-Posh, if it's not there yet
 if [[ $(uname) == "Darwin" ]] then
-  # Download Starship.rs, if it's not there yet
-  if [[ ! -f /opt/homebrew/bin/starship ]] then
+  if [[ ! -f /opt/homebrew/bin/oh-my-posh ]] then
     # use homebrew
     brew install starship
   fi
-elif [[ ! -f /usr/local/bin/starship ]] then
-    # Install Starship.rs using script
-    curl -sS https://starship.rs/install.sh | sh
+elif [[ ! -f /usr/local/bin/oh-my-posh ]] then
+    # Install Oh-My-Posh using script
+    curl -s https://ohmyposh.dev/install.sh | bash -s
 fi
+
+
+# Source/Load zinit
+source "${ZINIT_HOME}/zinit.zsh"
 
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
@@ -59,6 +60,9 @@ zinit snippet OMZP::terraform
 autoload -Uz compinit && compinit
 
 zinit cdreplay -q
+
+# Prompt customization
+eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/zen.toml)"
 
 # Keybindings
 #bindkey -e
@@ -95,8 +99,7 @@ alias c='clear'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Shell integrations
-source <(fzf --zsh)
-# eval "$(fzf --zsh)"
+eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval $(thefuck --alias)
 eval "$(starship init zsh)"
