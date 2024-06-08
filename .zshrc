@@ -25,7 +25,7 @@ fi
 if [[ $(uname) == "Darwin" ]] then
   if [[ ! -f /opt/homebrew/bin/oh-my-posh ]] then
     # use homebrew
-    brew install starship
+    brew install oh-my-posh
   fi
 elif [[ ! -f /usr/local/bin/oh-my-posh ]] then
     # Install Oh-My-Posh using script
