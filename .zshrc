@@ -5,6 +5,12 @@ if [[ -f "/opt/homebrew/bin/brew" ]] then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+if [[ -f "/opt/homebrew/opt/openjdk/bin/java" ]] then
+  # Add OpenJDK to PATH for homebrew installations
+  export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+  export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
+fi
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
