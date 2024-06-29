@@ -38,10 +38,9 @@ if [[ $(uname) == "Linux" ]] then
       # Create python venv
       python3 -m venv $HOME/.python --system-site-packages
   fi
+  # source python venv
+  source $HOME/.python/bin/activate
 fi
-
-# source python venv
-source $HOME/.python/bin/activate
 
 # add python packages
 # pip install https://github.com/nvbn/thefuck/archive/master.zip
