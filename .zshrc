@@ -32,6 +32,19 @@ elif [[ ! -f /usr/local/bin/oh-my-posh ]] then
     curl -s https://ohmyposh.dev/install.sh | bash -s
 fi
 
+# Create python venv on linux if it does not exists
+if [[ $(uname) == "Linux" ]] then
+  if [[ ! -f $HOME/.python/bin/python3 ]] then
+      # Create python venv
+      python3 -m venv $HOME/.python --system-site-packages
+  fi
+fi
+
+# source python venv
+source $HOME/.python/bin/activate
+
+# add python packages
+# pip install https://github.com/nvbn/thefuck/archive/master.zip
 
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
