@@ -106,6 +106,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 alias ls='ls --color'
 alias vim='nvim'
 alias c='clear'
+alias dpsn='docker ps --format "{{.Names}}"'
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
