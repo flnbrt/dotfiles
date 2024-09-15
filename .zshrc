@@ -29,7 +29,7 @@ if [[ $(uname) == "Darwin" ]] then
   fi
 elif [[ ! -f /usr/local/bin/oh-my-posh ]] then
     # Install Oh-My-Posh using script
-    curl -s https://ohmyposh.dev/install.sh | bash -s
+    curl -s https://ohmyposh.dev/install.sh | sudo bash -s
 fi
 
 # Create python venv on linux if it does not exists
