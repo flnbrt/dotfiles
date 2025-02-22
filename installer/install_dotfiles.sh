@@ -199,3 +199,13 @@ elif [[ $(uname) == "Linux" ]]; then
   install_with_script "lazygit" "curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/install_update_lazygit.sh | bash -s -- --bin-dir /usr/local/bin"
   install_with_script "lazydocker" "curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash"
 fi
+
+  echo ""
+  echo "#-----------------------------------------------------------------------"
+  echo "# Installation procedure complete"
+  echo "#-----------------------------------------------------------------------"
+  echo "The installation procedure using this script finished successfully!"
+  echo "Thanks for using my script."
+  echo "Please restart your terminal session to let ZSH install it's extensions."
+  echo ""
+  exit 0
