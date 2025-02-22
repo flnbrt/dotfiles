@@ -58,7 +58,7 @@ install_zsh() {
 }
 
 # Function to install fzf
-install_zsh() {
+install_fzf() {
   if command -v apt &>/dev/null; then
     sudo apt update
     sudo apt install -y fzf
