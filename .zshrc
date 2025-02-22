@@ -60,7 +60,7 @@ elif [[ $(uname) == "Linux" ]]; then
   install_with_script "oh-my-posh" "curl -s https://ohmyposh.dev/install.sh | bash -s -- -d /usr/local/bin"
   install_with_pip "thefuck"
   install_with_script "zoxide" "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man"
-  install_with_script "lazygit" "curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/.config/lazygit/lazygit_installer.sh | bash -s -- --bin-dir /usr/local/bin"
+  install_with_script "lazygit" "curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/install_update_lazygit.sh | bash -s -- --bin-dir /usr/local/bin"
   install_with_script "lazydocker" "curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash"
 fi
 
@@ -134,8 +134,8 @@ alias lgit='lazygit'
 [[ $(uname) == "Linux" ]] && {
   alias zoxide-update='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man/'
   alias z-update='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man/'
-  alias lazygit-updater='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/.config/lazygit/lazygit_installer.sh | bash -s -- --bin-dir /usr/local/bin'
-  alias lgit-updater='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/.config/lazygit/lazygit_installer.sh | bash -s -- --bin-dir /usr/local/bin'
+  alias lazygit-updater='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/install_update_lazygit.sh | bash -s -- --bin-dir /usr/local/bin'
+  alias lgit-updater='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/install_update_lazygit.sh | bash -s -- --bin-dir /usr/local/bin'
   alias lzd='lazydocker'
   alias lazydocker-update='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
   alias lzd-update='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
