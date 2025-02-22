@@ -8,6 +8,6 @@ Currently using Linux and macOS.
 Simply run the installer script from your command line
 
 ```
-curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/refs/heads/main/installer/install_dotfiles.sh | bash
+curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/install_dotfiles.sh | bash
 ```
 Everything else should then be done by the automatic installation procedure.
