@@ -90,7 +90,7 @@ get_package_manager
 # ask for session restart #
 ###########################
 
-if ! ps -p $$ -o comm= | grep -q "zsh"; then
+if ! getent passwd "$USER" | grep -q "zsh"; then
   # install zsh
   install_package "zsh"
 
