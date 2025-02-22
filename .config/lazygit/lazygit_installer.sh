@@ -4,7 +4,7 @@
 get_system_architecture() {
     case "$(uname -m)" in
         x86_64)
-            echo "amd64"
+            echo "x86_64"
             ;;
         arm64)
             echo "arm64"
