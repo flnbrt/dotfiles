@@ -5,7 +5,7 @@ Currently using Linux and macOS.
 
 ## Installation
 
-First, check out the dotfiles repo in your $HOME directory using git
+First, checkout the dotfiles repo in your ```$HOME``` directory using git
 
 ```
 https://github.com/flnbrt/dotfiles.git $HOME/dotfiles
