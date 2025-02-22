@@ -51,6 +51,10 @@ stow_files() {
 # install tools using Homebrew if not already installed
 install_with_brew() {
   local tool=$1
+  echo ""
+  echo "#-----------------------------------------------------------------------"
+  echo "# Installing $tool via homebrew"
+  echo "#-----------------------------------------------------------------------"
   command -v $tool &>/dev/null || brew install $tool
 }
 
@@ -58,12 +62,20 @@ install_with_brew() {
 install_with_script() {
   local tool=$1
   local installer_string=$2
+  echo ""
+  echo "#-----------------------------------------------------------------------"
+  echo "# Installing $tool via script"
+  echo "#-----------------------------------------------------------------------"
   command -v $tool &>/dev/null || eval "$installer_string"
 }
 
 # install tools using pip if not already installed
 install_with_pip() {
   local tool=$1
+  echo ""
+  echo "#-----------------------------------------------------------------------"
+  echo "# Installing $tool via pip"
+  echo "#-----------------------------------------------------------------------"
   command -v $tool &>/dev/null || pip3 install $tool
 }
 
@@ -164,6 +176,10 @@ if [[ $(uname) == "Darwin" ]]; then
   if [[ -f /opt/homebrew/bin/brew ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
   elif ! command -v brew &>/dev/null; then
+    echo ""
+    echo "#-----------------------------------------------------------------------"
+    echo "# Installing Homebrew"
+    echo "#-----------------------------------------------------------------------"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
