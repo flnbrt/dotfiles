@@ -24,7 +24,7 @@ install_with_pip() {
 # Homebrew setup for macOS
 if [[ \$(uname) == "Darwin" ]]; then
   if [[ -f /opt/homebrew/bin/brew ]]; then
-    eval "\$(/opt/homebrew/bin/brew shellenv)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
   elif ! command -v brew &>/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     eval "$(/opt/homebrew/bin/brew shellenv)"
