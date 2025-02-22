@@ -85,6 +85,8 @@ alias vim='nvim'
 alias c='clear'
 alias dpsn='docker ps --format "{{.Names}}"'
 alias lgit='lazygit'
+alias run-dotfiles-installer='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/install_dotfiles.sh | bash'
+alias stow-dotfiles='stow . --adopt -d $HOME/dotfiles/ -t $HOME --ignore='^installer$' --verbose=2'
 
 # Linux only aliases
 [[ $(uname) == "Linux" ]] && {
