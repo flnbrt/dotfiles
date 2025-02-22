@@ -1,5 +1,5 @@
 # .zshrc
-
+# Custom .zshrc for use with various extras
 
 if [[ $(uname) == "Darwin" ]] then
   if [[ ! -f "/opt/homebrew/bin/brew" ]] then
