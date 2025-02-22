@@ -11,7 +11,7 @@ install_with_brew() {
 install_with_script() {
   local tool=$1
   local installer_string=$2
-  command -v $tool &>/dev/null || $installer_string
+  command -v $tool &>/dev/null || eval "$installer_string"
 }
 
 # Function to install a tool using pip if not already installed
