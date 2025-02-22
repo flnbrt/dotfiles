@@ -81,7 +81,7 @@ install_stow() {
 # Function to stow all config files
 stow_files() {
   # double check if dotfiles really need to get stowed...
-  if [[ grep -q "# Custom .zshrc for use with various extras" $HOME/.zshrc ]]; then
+  if grep -q "# Custom .zshrc for use with various extras" "$HOME/.zshrc"; then
     echo "Stowing files..."
     # stow . -d $HOME/dotfiles/ -t $HOME
   fi
@@ -93,7 +93,8 @@ if ! command -v python3 &>/dev/null; then
   if install_python3; then
     echo "Python3 installation completed."
   else
-    echo "Python3 installation failed. Please install python3 manually." 
+    echo "Python3 installation failed. Please install python3 manually."
+  fi
 fi
 
 # Check if ZSH is installed
@@ -117,7 +118,7 @@ if ! command -v stow &>/dev/null; then
 fi
 
 # Check if files need to get stowed
-if [[ ! -L $HOME/.zshrc ]]; then
+if [ ! -L "$HOME/.zshrc" ]; then
   echo "Configuration for dotfiles isn't complete!"
   echo "Stowing dotfiles now..."
   if stow_files; then
@@ -128,7 +129,7 @@ if [[ ! -L $HOME/.zshrc ]]; then
 fi
 
 # Change shell to ZSH
-if [[ ! $SHELL == "/bin/zsh" ]]; then
+if [ "$SHELL" != "/bin/zsh" ]; then
   echo "You are currently not using the ZSH shell. Changing your default login shell now..."
   if chsh -s "$(command -v zsh)" 2>/dev/null; then
     echo "Successfully set ZSH as your new login shell. Please restart your current session."
@@ -136,4 +137,3 @@ if [[ ! $SHELL == "/bin/zsh" ]]; then
     echo "Failed to change the login shell to ZSH. Please try again or contact your system administrator."
   fi
 fi
-
