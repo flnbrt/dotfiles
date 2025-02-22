@@ -18,7 +18,7 @@ install_with_script() {
 # Function to install a tool using pip if not already installed
 install_with_pip() {
   local tool=$1
-  command -v $tool &>/dev/null || pip3 install $tool --user
+  command -v $tool &>/dev/null || pip3 install $tool
 }
 
 # Homebrew setup for macOS
