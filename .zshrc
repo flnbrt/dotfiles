@@ -29,7 +29,24 @@ if [[ $(uname) == "Darwin" ]] then
   fi
 elif [[ ! -f /usr/local/bin/oh-my-posh ]] then
     # Install Oh-My-Posh using script
-    curl -s https://ohmyposh.dev/install.sh | sudo bash -s
+    curl -s https://ohmyposh.dev/install.sh | sudo bash -s -- -d /usr/local/bin
+fi
+
+# Download and install zoxide, if it's not there yet
+if [[ $(uname) == "Linux" ]] then
+  if [[ ! -f /usr/local/bin/zoxide ]] then
+    # Install zoxide using script
+    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin
+  fi
+fi
+
+# Download and install lazydocker, if it's not there yet
+if [[ $(uname) == "Linux" ]] then
+  if [[ ! -f /usr/local/bin/lazydocker ]] then
+    # Install lazydocker using script
+    export DIR="/usr/local/bin"
+    curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash 
+  fi
 fi
 
 # Create python venv on linux if it does not exists
@@ -104,9 +121,19 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
 alias ls='ls --color'
+alias vi='nvim'
 alias vim='nvim'
 alias c='clear'
 alias dpsn='docker ps --format "{{.Names}}"'
+
+# Linux only aliases
+if [[ $(uname) == "Linux" ]] then
+  alias zoxide-update='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin'
+  alias z-update='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin'
+  alias lzd='lazydocker'
+  alias lazydocker-update='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
+  alias lzd-update='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
+fi
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
