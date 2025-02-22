@@ -5,16 +5,9 @@ Currently using Linux and macOS.
 
 ## Installation
 
-First, checkout the dotfiles repo in your ```$HOME``` directory using git
+Simply run the installer script from your command line
 
 ```
-git clone https://github.com/flnbrt/dotfiles.git $HOME/dotfiles
+curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/refs/heads/main/installer/install_dotfiles.sh | bash
 ```
-
-Then copy the ```.bashrc``` file from ```$HOME/dotfiles``` to ```$HOME``` and source the file.<br>
 Everything else should then be done by the automatic installation procedure.
-
-```
-cp $HOME/dotfiles/.bashrc $HOME
-source $HOME/.bashrc
-```
