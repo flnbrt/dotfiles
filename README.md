@@ -1,34 +1,20 @@
-# My dotfiles
+# Dotfiles
 
-This directory contains the dotfiles for my system
-
-## Requirements
-
-Ensure you have the following installed on your system
-
-### Git
-
-```
-pacman -S git
-```
-
-### Stow
-
-```
-pacman -S stow
-```
+This directory contains all the dotfiles for my systems.<br>
+Currently using Linux and macOS.
 
 ## Installation
 
 First, check out the dotfiles repo in your $HOME directory using git
 
 ```
-$ git clone git@github.com/dreamsofautonomy/dotfiles.git
-$ cd dotfiles
+https://github.com/flnbrt/dotfiles.git $HOME/dotfiles
 ```
 
-then use GNU stow to create symlinks
+Then copy the ```.bashrc``` file from ```$HOME/dotfiles``` to ```$HOME``` and source the file.<br>
+Everything else should then be done by the automatic installation procedure.
 
 ```
-$ stow .
+cp $HOME/dotfiles/.bashrc $HOME
+source $HOME/.bashrc
 ```
