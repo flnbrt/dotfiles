@@ -1,88 +1,42 @@
 #!/bin/bash
 
-# Function to install python3
-install_python3() {
-  if command -v apt &>/dev/null; then
-    sudo apt update
-    sudo apt install -y python3-dev python3-pip python3-setuptools
-  elif command -v yum &>/dev/null; then
-    sudo yum install -y python3-dev python3-pip python3-setuptools
-  elif command -v dnf &>/dev/null; then
-    sudo dnf install -y python3-dev python3-pip python3-setuptools
-  elif command -v pacman &>/dev/null; then
-    sudo pacman -S --noconfirm python3-dev python3-pip python3-setuptools
-  elif command -v zypper &>/dev/null; then
-    sudo zypper install -y python3-devel python3-pip python3-setuptools
-  else
-    echo "No supported package manager found. Please install python3 manually."
-    return 1
-  fi
+####################
+# Helper functions #
+####################
+
+# Get package manager
+get_package_manager() {
+    if uname == "Darwin"; then
+      PACKAGE_MANAGER="brew install "
+    else
+      if command -v apt &>/dev/null; then
+          PACKAGE_MANAGER="apt install -y"
+      elif command -v dnf &>/dev/null; then
+          PACKAGE_MANAGER="dnf install -y"
+      elif command -v yum &>/dev/null; then
+          PACKAGE_MANAGER="yum install -y"
+      elif command -v zypper &>/dev/null; then
+          PACKAGE_MANAGER="zypper install -y"
+      elif command -v pacman &>/dev/null; then
+          PACKAGE_MANAGER="pacman -S --noconfirm"
+      else
+          echo "Could not determine a supported package manager. Aborting..."
+          exit 1
+      fi
+    fi
 }
 
-# Function to install ZSH
-install_zsh() {
-  if command -v apt &>/dev/null; then
-    sudo apt update
-    sudo apt install -y zsh
-  elif command -v yum &>/dev/null; then
-    sudo yum install -y zsh
-  elif command -v dnf &>/dev/null; then
-    sudo dnf install -y zsh
-  elif command -v pacman &>/dev/null; then
-    sudo pacman -S --noconfirm zsh
-  elif command -v brew &>/dev/null; then
-    brew install zsh
-  elif command -v zypper &>/dev/null; then
-    sudo zypper install -y zsh
-  else
-    echo "No supported package manager found. Please install ZSH manually."
-    return 1
-  fi
+# install dependency
+install_package() {
+  local package=$1
+  echo ""
+  echo "#-----------------------------------------------------------------------"
+  echo "# Installing $1"
+  echo "#-----------------------------------------------------------------------"
+  eval "$PACKAGE_MANAGER $package"
 }
 
-# Function to install fzf
-install_fzf() {
-  if command -v apt &>/dev/null; then
-    sudo apt update
-    sudo apt install -y fzf
-  elif command -v yum &>/dev/null; then
-    sudo yum install -y fzf
-  elif command -v dnf &>/dev/null; then
-    sudo dnf install -y fzf
-  elif command -v pacman &>/dev/null; then
-    sudo pacman -S --noconfirm fzf
-  elif command -v brew &>/dev/null; then
-    brew install fzf
-  elif command -v zypper &>/dev/null; then
-    sudo zypper install -y fzf
-  else
-    echo "No supported package manager found. Please install fzf manually."
-    return 1
-  fi
-}
-
-# Function to install stow
-install_stow() {
-  if command -v apt &>/dev/null; then
-    sudo apt update
-    sudo apt install -y stow
-  elif command -v yum &>/dev/null; then
-    sudo yum install -y stow
-  elif command -v dnf &>/dev/null; then
-    sudo dnf install -y stow
-  elif command -v pacman &>/dev/null; then
-    sudo pacman -S --noconfirm stow
-  elif command -v brew &>/dev/null; then
-    brew install stow
-  elif command -v zypper &>/dev/null; then
-    sudo zypper install -y stow
-  else
-    echo "No supported package manager found. Please install stow manually."
-    return 1
-  fi
-}
-
-# Function to stow all config files
+# stow config files
 stow_files() {
   # double check if dotfiles really need to get stowed...
   if ! grep -q "# Custom .zshrc for use with various extras" "$HOME/.zshrc" &>/dev/null; then
@@ -92,60 +46,48 @@ stow_files() {
   fi
 }
 
-# Check if python3 is installed
-if ! command -v python3 &>/dev/null; then
-  echo "#-----------------------------------------------------------------------"
-  echo "# Python3 installation"
-  echo "#-----------------------------------------------------------------------"
-  echo "Python3 is not installed. Installing python3 now..."
-  if install_python3; then
-    echo "Python3 installation completed."
-  else
-    echo "Python3 installation failed. Please install python3 manually."
-  fi
+#-------------#
+# Main Script #
+#-------------#
+
+get_package_manager
+
+################################
+# Cloning of GitHub repository #
+################################
+
+if [ ! -d "$HOME/dotfiles" ]; then
+    echo ""
+    echo "#-----------------------------------------------------------------------"
+    echo "# Cloning GitHub repository to ${HOME}/dotfiles"
+    echo "#-----------------------------------------------------------------------"
+    if git clone https://github.com/flnbrt/dotfiles.git $HOME/dotfiles; then
+        echo "Successfully cloned GitHub repository to ${HOME}/dotfiles."
+    else
+        echo "Error during cloning of GitHub repository to ${HOME}/dotfiles."
+        echo "Aborting."
+        exit 1
+    fi
 fi
 
-# Check if ZSH is installed
-if ! command -v zsh &>/dev/null; then
-  echo "#-----------------------------------------------------------------------"
-  echo "# ZSH installation"
-  echo "#-----------------------------------------------------------------------"
-  echo "ZSH is not installed. Installing ZSH now..."
-  if install_zsh; then
-    echo "ZSH installation completed."
-  else
-    echo "ZSH installation failed. Please install ZSH manually."
-  fi
-fi
+########################
+# Install dependencies #
+########################
 
-# Check if fzf is installed
-if ! command -v fzf &>/dev/null; then
-  echo "#-----------------------------------------------------------------------"
-  echo "# FZF installation"
-  echo "#-----------------------------------------------------------------------"
-  echo "fzf is not installed. Installing fzf now..."
-  if install_fzf; then
-    echo "fzf installation completed."
-  else
-    echo "fzf installation failed. Please install fzf manually."
-  fi
-fi
+install_package "python3-dev python3-pip python3-setuptools"
+install_package "curl"
+install_package "git"
+install_package "zsh"
+install_package "fzf"
+install_package "stow"
 
-# Check if stow is installed
-if ! command -v stow &>/dev/null; then
-  echo "#-----------------------------------------------------------------------"
-  echo "# Stow installation"
-  echo "#-----------------------------------------------------------------------"
-  echo "stow is not installed. Installing stow now..."
-  if install_stow; then
-    echo "stow installation completed."
-  else
-    echo "stow installation failed. Please install stow manually."
-  fi
-fi
+#################
+# Stowing files #
+#################
 
 # Check if files need to get stowed
 if [ ! -L "$HOME/.zshrc" ]; then
+  echo ""
   echo "#-----------------------------------------------------------------------"
   echo "# Stowing Dotfiles"
   echo "#-----------------------------------------------------------------------"
@@ -155,11 +97,12 @@ if [ ! -L "$HOME/.zshrc" ]; then
     echo "Successfully stowed all dotfiles."
   else
     echo "stow command failed. Please stow dotfiles manually."
+    exit 1
   fi
 fi
 
 # Change shell to ZSH
-if [ "$SHELL" != "/bin/zsh" ]; then
+if ! echo "$SHELL" | grep -q "zsh"; then
   echo "#-----------------------------------------------------------------------"
   echo "# Changing login shell"
   echo "#-----------------------------------------------------------------------"
