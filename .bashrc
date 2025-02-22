@@ -111,6 +111,9 @@ stow_files() {
 
 # Check if python3 is installed
 if ! command -v python3 &>/dev/null; then
+  echo "#-----------------------------------------------------------------------"
+  echo "# Python3 installation"
+  echo "#-----------------------------------------------------------------------"
   echo "Python3 is not installed. Installing python3 now..."
   if install_python3; then
     echo "Python3 installation completed."
@@ -121,6 +124,9 @@ fi
 
 # Check if ZSH is installed
 if ! command -v zsh &>/dev/null; then
+  echo "#-----------------------------------------------------------------------"
+  echo "# ZSH installation"
+  echo "#-----------------------------------------------------------------------"
   echo "ZSH is not installed. Installing ZSH now..."
   if install_zsh; then
     echo "ZSH installation completed."
@@ -131,6 +137,9 @@ fi
 
 # Check if fzf is installed
 if ! command -v fzf &>/dev/null; then
+  echo "#-----------------------------------------------------------------------"
+  echo "# FZF installation"
+  echo "#-----------------------------------------------------------------------"
   echo "fzf is not installed. Installing fzf now..."
   if install_fzf; then
     echo "fzf installation completed."
@@ -141,6 +150,9 @@ fi
 
 # Check if stow is installed
 if ! command -v stow &>/dev/null; then
+  echo "#-----------------------------------------------------------------------"
+  echo "# Stow installation"
+  echo "#-----------------------------------------------------------------------"
   echo "stow is not installed. Installing stow now..."
   if install_stow; then
     echo "stow installation completed."
@@ -151,6 +163,9 @@ fi
 
 # Check if files need to get stowed
 if [ ! -L "$HOME/.zshrc" ]; then
+  echo "#-----------------------------------------------------------------------"
+  echo "# Stowing Dotfiles"
+  echo "#-----------------------------------------------------------------------"
   echo "Configuration for dotfiles isn't complete!"
   echo "Stowing dotfiles now..."
   if stow_files; then
@@ -162,6 +177,9 @@ fi
 
 # Change shell to ZSH
 if [ "$SHELL" != "/bin/zsh" ]; then
+  echo "#-----------------------------------------------------------------------"
+  echo "# Changing login shell"
+  echo "#-----------------------------------------------------------------------"
   echo "You are currently not using the ZSH shell. Changing your default login shell now..."
   if chsh -s "$(command -v zsh)" 2>/dev/null; then
     echo "Successfully set ZSH as your new login shell. Please restart your current session."
