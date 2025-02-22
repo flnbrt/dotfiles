@@ -84,7 +84,7 @@ stow_files() {
   if ! grep -q "# Custom .zshrc for use with various extras" "$HOME/.zshrc" &>/dev/null; then
     echo "Stowing files..."
     stow . --adopt -d $HOME/dotfiles/ -t $HOME
-    git -C $HOME/dotfiles reset --hard
+    git -C $HOME/dotfiles reset --hard &>/dev/null
   fi
 }
 
