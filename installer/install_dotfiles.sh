@@ -8,7 +8,7 @@ PACKAGE_MANAGER=""
 
 # Get package manager
 get_package_manager() {
-    if [ "$(uname)" = "Darwin" ]; then
+    if [ $(uname) == "Darwin" ]; then
       PACKAGE_MANAGER="brew install "
     else
       if command -v apt &>/dev/null; then
@@ -33,7 +33,7 @@ install_package() {
   local package=$1
   echo ""
   echo "#-----------------------------------------------------------------------"
-  echo "# Installing $1"
+  echo "# Installing $package"
   echo "#-----------------------------------------------------------------------"
   eval "$PACKAGE_MANAGER $package"
 }
@@ -110,8 +110,9 @@ if ! echo "$SHELL" | grep -q "zsh"; then
   echo "#-----------------------------------------------------------------------"
   echo "You are currently not using the ZSH shell. Changing your default login shell now..."
   if chsh -s "$(command -v zsh)" 2>/dev/null; then
-    echo "Successfully set ZSH as your new login shell. Please restart your current session."
+    echo "Successfully set ZSH as your new login shell."
   else
     echo "Failed to change the login shell to ZSH. Please try again or contact your system administrator."
+    exit 1
   fi
 fi
