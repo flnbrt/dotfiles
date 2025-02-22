@@ -9,7 +9,7 @@ PACKAGE_MANAGER=""
 # Get package manager
 get_package_manager() {
     if [ $(uname) == "Darwin" ]; then
-      PACKAGE_MANAGER="brew install "
+      PACKAGE_MANAGER="brew install"
     else
       if command -v apt &>/dev/null; then
           PACKAGE_MANAGER="apt install -y"
