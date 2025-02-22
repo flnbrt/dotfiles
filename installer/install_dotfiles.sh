@@ -78,7 +78,7 @@ get_package_manager
 # ask for session restart #
 ###########################
 
-if ! echo "$SHELL" | grep -q "zsh"; then
+if ! echo "$0" | grep -q "zsh"; then
   # install zsh
   install_package "zsh"
 
@@ -90,7 +90,7 @@ if ! echo "$SHELL" | grep -q "zsh"; then
   echo "You are currently not using the ZSH shell. Changing your default login shell now..."
   if chsh -s "$(command -v zsh)" 2>/dev/null; then
     echo "Successfully set ZSH as your new login shell."
-    echo "Please log out and back in again for changes to take effect and run this script again!"
+    echo "Please restart your terminal session and run this script again!"
     echo ""
     exit 0
   else
