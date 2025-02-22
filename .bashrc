@@ -29,7 +29,7 @@ install_python3() {
   elif command -v pacman &>/dev/null; then
     sudo pacman -S --noconfirm python3-dev python3-pip python3-setuptools
   elif command -v zypper &>/dev/null; then
-    sudo zypper install -y python3-dev python3-pip python3-setuptools
+    sudo zypper install -y python3-devel python3-pip python3-setuptools
   else
     echo "No supported package manager found. Please install python3 manually."
     return 1
