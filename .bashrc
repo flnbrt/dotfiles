@@ -81,10 +81,10 @@ install_stow() {
 # Function to stow all config files
 stow_files() {
   # double check if dotfiles really need to get stowed...
-  if grep -q "# Custom .zshrc for use with various extras" "$HOME/.zshrc" &>/dev/null; then
+  if ! grep -q "# Custom .zshrc for use with various extras" "$HOME/.zshrc" &>/dev/null; then
     echo "Stowing files..."
     stow . --adopt -d $HOME/dotfiles/ -t $HOME
-    git -C $HOME/dotfiles --reset hard
+    git -C $HOME/dotfiles reset --hard
   fi
 }
 
