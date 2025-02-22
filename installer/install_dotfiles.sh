@@ -54,6 +54,42 @@ stow_files() {
 
 get_package_manager
 
+###########################
+# change shell to zsh and #
+# ask for session restart #
+###########################
+
+if ! echo "$SHELL" | grep -q "zsh"; then
+  # install zsh
+  install_package "zsh"
+
+  # Change default login shell to ZSH
+  echo ""
+  echo "#-----------------------------------------------------------------------"
+  echo "# Changing login shell"
+  echo "#-----------------------------------------------------------------------"
+  echo "You are currently not using the ZSH shell. Changing your default login shell now..."
+  if chsh -s "$(command -v zsh)" 2>/dev/null; then
+    echo "Successfully set ZSH as your new login shell."
+    echo "Please restart your current session and run this script again!"
+    echo ""
+    exit 0
+  else
+    echo "Failed to change the login shell to ZSH. Please try again or contact your system administrator."
+    exit 1
+  fi
+fi
+
+########################
+# Install dependencies #
+########################
+
+install_package "python3-dev python3-pip python3-setuptools"
+install_package "curl"
+install_package "git"
+install_package "fzf"
+install_package "stow"
+
 ################################
 # Cloning of GitHub repository #
 ################################
@@ -72,17 +108,6 @@ if [ ! -d "$HOME/dotfiles" ]; then
     fi
 fi
 
-########################
-# Install dependencies #
-########################
-
-install_package "python3-dev python3-pip python3-setuptools"
-install_package "curl"
-install_package "git"
-install_package "zsh"
-install_package "fzf"
-install_package "stow"
-
 #################
 # Stowing files #
 #################
@@ -99,20 +124,6 @@ if [ ! -L "$HOME/.zshrc" ]; then
     echo "Successfully stowed all dotfiles."
   else
     echo "stow command failed. Please stow dotfiles manually."
-    exit 1
-  fi
-fi
-
-# Change shell to ZSH
-if ! echo "$SHELL" | grep -q "zsh"; then
-  echo "#-----------------------------------------------------------------------"
-  echo "# Changing login shell"
-  echo "#-----------------------------------------------------------------------"
-  echo "You are currently not using the ZSH shell. Changing your default login shell now..."
-  if chsh -s "$(command -v zsh)" 2>/dev/null; then
-    echo "Successfully set ZSH as your new login shell."
-  else
-    echo "Failed to change the login shell to ZSH. Please try again or contact your system administrator."
     exit 1
   fi
 fi
