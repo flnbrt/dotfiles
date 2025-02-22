@@ -90,7 +90,13 @@ get_package_manager
 # ask for session restart #
 ###########################
 
-if ! getent passwd "$USER" | grep -q "zsh"; then
+if [ "$(uname)" = "Darwin" ]; then
+  CURRENT_SHELL="$SHELL"
+else
+  CURRENT_SHELL="$(getent passwd "$USER" | cut -d: -f7)"
+fi
+
+if ! echo "$CURRENT_SHELL" | grep -q "zsh"; then
   # install zsh
   install_package "zsh"
 
