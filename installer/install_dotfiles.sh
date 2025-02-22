@@ -1,12 +1,14 @@
 #!/bin/bash
 
+PACKAGE_MANAGER=""
+
 ####################
 # Helper functions #
 ####################
 
 # Get package manager
 get_package_manager() {
-    if uname == "Darwin"; then
+    if [ "$(uname)" == "Darwin" ]; then
       PACKAGE_MANAGER="brew install "
     else
       if command -v apt &>/dev/null; then
