@@ -8,7 +8,7 @@
 [[ $(uname) == "Linux" ]] && export DIR=/usr/local/bin
 
 # Homebrew for macOS
-if [[ $(uname) == "Darwin"]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ $(uname) == "Darwin" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Add OpenJDK to PATH for Homebrew installations
 [[ -d "/opt/homebrew/opt/openjdk/bin" ]] && export PATH="/opt/homebrew/opt/openjdk/bin:$PATH" && export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
