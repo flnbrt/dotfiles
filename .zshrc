@@ -1,6 +1,10 @@
 # .zshrc
 
-if [[ -f "/opt/homebrew/bin/brew" ]] then
+
+if [[ $(uname) == "Darwin" ]] then
+  if [[ ! -f "/opt/homebrew/bin/brew" ]] then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
   # If you're using macOS, you'll want this enabled
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
@@ -33,7 +37,12 @@ elif [[ ! -f /usr/local/bin/oh-my-posh ]] then
 fi
 
 # Download and install zoxide, if it's not there yet
-if [[ $(uname) == "Linux" ]] then
+if [[ $(uname) == "Darwin" ]] then
+  if [[ ! -f /opt/homebrew/bin/zoxide ]] then
+    # use homebrew
+    brew install zoxide
+  fi
+elif [[ $(uname) == "Linux" ]] then
   if [[ ! -f /usr/local/bin/zoxide ]] then
     # Install zoxide using script
     curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man/
@@ -41,7 +50,12 @@ if [[ $(uname) == "Linux" ]] then
 fi
 
 # Download and install lazygit, if it's not there yet
-if [[ $(uname) == "Linux" ]] then
+if [[ $(uname) == "Darwin" ]] then
+  if [[ ! -f /opt/homebrew/bin/lazygit ]] then
+    # use homebrew
+    brew install lazygit
+  fi
+elif [[ $(uname) == "Linux" ]] then
   if [[ ! -f /usr/local/bin/lazygit ]] then
     # Install lazygit using custom script
     cat $HOME/dotfiles/.config/lazygit/lazygit_installer.sh | bash
@@ -133,12 +147,12 @@ alias vi='nvim'
 alias vim='nvim'
 alias c='clear'
 alias dpsn='docker ps --format "{{.Names}}"'
+alias lgit='lazygit'
 
 # Linux only aliases
 if [[ $(uname) == "Linux" ]] then
   alias zoxide-update='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man/'
   alias z-update='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man/'
-  alias lgit='lazygit'
   alias lazygit-updater='cat $HOME/dotfiles/.config/lazygit/lazygit_installer.sh | bash'
   alias lgit-updater='cat $HOME/dotfiles/.config/lazygit/lazygit_installer.sh | bash'
   alias lzd='lazydocker'
