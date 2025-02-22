@@ -126,6 +126,8 @@ install_package "curl"
 install_package "git"
 install_package "fzf"
 install_package "stow"
+install_package "stow"
+install_package "vim nvim"
 
 ################################
 # Cloning of GitHub repository #
