@@ -70,6 +70,14 @@ elif [[ $(uname) == "Linux" ]] then
   fi
 fi
 
+# Download and install fzf, if it's not there yet
+if [[ $(uname) == "Darwin" ]] then
+  if [[ ! -f /opt/homebrew/bin/fzf ]] then
+    # use homebrew
+    brew install fzf
+  fi
+fi
+
 # Download and install lazygit, if it's not there yet
 if [[ $(uname) == "Darwin" ]] then
   if [[ ! -f /opt/homebrew/bin/lazygit ]] then

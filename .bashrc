@@ -57,6 +57,27 @@ install_zsh() {
   fi
 }
 
+# Function to install fzf
+install_zsh() {
+  if command -v apt &>/dev/null; then
+    sudo apt update
+    sudo apt install -y fzf
+  elif command -v yum &>/dev/null; then
+    sudo yum install -y fzf
+  elif command -v dnf &>/dev/null; then
+    sudo dnf install -y fzf
+  elif command -v pacman &>/dev/null; then
+    sudo pacman -S --noconfirm fzf
+  elif command -v brew &>/dev/null; then
+    brew install fzf
+  elif command -v zypper &>/dev/null; then
+    sudo zypper install -y fzf
+  else
+    echo "No supported package manager found. Please install fzf manually."
+    return 1
+  fi
+}
+
 # Function to install stow
 install_stow() {
   if command -v apt &>/dev/null; then
@@ -105,6 +126,16 @@ if ! command -v zsh &>/dev/null; then
     echo "ZSH installation completed."
   else
     echo "ZSH installation failed. Please install ZSH manually."
+  fi
+fi
+
+# Check if fzf is installed
+if ! command -v fzf &>/dev/null; then
+  echo "fzf is not installed. Installing fzf now..."
+  if install_fzf; then
+    echo "fzf installation completed."
+  else
+    echo "fzf installation failed. Please install fzf manually."
   fi
 fi
 
