@@ -79,7 +79,7 @@ if [[ $(uname) == "Darwin" ]] then
 elif [[ $(uname) == "Linux" ]] then
   if [[ ! -f /usr/local/bin/lazygit ]] then
     # Install lazygit using custom script
-    cat $HOME/dotfiles/.config/lazygit/lazygit_installer.sh | bash
+    curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/.config/lazygit/lazygit_installer.sh | bash -s -- --bin-dir /usr/local/bin
   fi
 fi
 
@@ -161,8 +161,8 @@ alias lgit='lazygit'
 if [[ $(uname) == "Linux" ]] then
   alias zoxide-update='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man/'
   alias z-update='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man/'
-  alias lazygit-updater='cat $HOME/dotfiles/.config/lazygit/lazygit_installer.sh | bash'
-  alias lgit-updater='cat $HOME/dotfiles/.config/lazygit/lazygit_installer.sh | bash'
+  alias lazygit-updater='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/.config/lazygit/lazygit_installer.sh | bash -s -- --bin-dir /usr/local/bin'
+  alias lgit-updater='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/.config/lazygit/lazygit_installer.sh | bash -s -- --bin-dir /usr/local/bin'
   alias lzd='lazydocker'
   alias lazydocker-update='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
   alias lzd-update='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
