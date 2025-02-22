@@ -15,6 +15,16 @@ if [[ -f "/opt/homebrew/opt/openjdk/bin/java" ]] then
   export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
 fi
 
+# Create python venv on linux if it does not exists
+if [[ $(uname) == "Linux" ]] then
+  if [[ ! -f $HOME/.python/bin/python3 ]] then
+      # Create python venv
+      python3 -m venv $HOME/.python --system-site-packages
+  fi
+  # source python venv
+  source $HOME/.python/bin/activate
+fi
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -34,6 +44,17 @@ if [[ $(uname) == "Darwin" ]] then
 elif [[ ! -f /usr/local/bin/oh-my-posh ]] then
     # Install Oh-My-Posh using script
     curl -s https://ohmyposh.dev/install.sh | sudo bash -s -- -d /usr/local/bin
+fi
+
+# Download and install thefuck, if it's not there yet
+if [[ $(uname) == "Darwin" ]] then
+  if [[ ! -f /opt/homebrew/bin/thefuck ]] then
+    # use homebrew
+    brew install thefuck
+  fi
+elif [[ ! -f /root/.python/bin/thefuck ]] then
+    # Install thefuck using pip3
+    pip3 install thefuck --user
 fi
 
 # Download and install zoxide, if it's not there yet
@@ -70,19 +91,6 @@ if [[ $(uname) == "Linux" ]] then
     curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash 
   fi
 fi
-
-# Create python venv on linux if it does not exists
-if [[ $(uname) == "Linux" ]] then
-  if [[ ! -f $HOME/.python/bin/python3 ]] then
-      # Create python venv
-      python3 -m venv $HOME/.python --system-site-packages
-  fi
-  # source python venv
-  source $HOME/.python/bin/activate
-fi
-
-# add python packages
-# pip install https://github.com/nvbn/thefuck/archive/master.zip
 
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
