@@ -8,7 +8,7 @@ Currently using Linux and macOS.
 First, checkout the dotfiles repo in your ```$HOME``` directory using git
 
 ```
-https://github.com/flnbrt/dotfiles.git $HOME/dotfiles
+git clone https://github.com/flnbrt/dotfiles.git $HOME/dotfiles
 ```
 
 Then copy the ```.bashrc``` file from ```$HOME/dotfiles``` to ```$HOME``` and source the file.<br>
