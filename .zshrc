@@ -10,9 +10,8 @@ install_with_brew() {
 # Function to install a tool using a script if not already installed
 install_with_script() {
   local tool=$1
-  local script_url=$2
-  local additional_params=$3
-  command -v $tool &>/dev/null || curl -sSfL $script_url | bash -s -- $additional_params
+  local installer_string=$2
+  command -v $tool &>/dev/null || $installer_string
 }
 
 # Function to install a tool using pip if not already installed
@@ -30,6 +29,12 @@ if [[ $(uname) == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
 fi
+
+#########################
+# Environmental exports #
+#########################
+
+[[ $(uname) == "Linux" ]] && export DIR=/usr/local/bin
 
 # Add OpenJDK to PATH for Homebrew installations
 [[ -d "/opt/homebrew/opt/openjdk/bin" ]] && export PATH="/opt/homebrew/opt/openjdk/bin:$PATH" && export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
@@ -52,11 +57,11 @@ if [[ $(uname) == "Darwin" ]]; then
   install_with_brew "fzf"
   install_with_brew "lazygit"
 elif [[ $(uname) == "Linux" ]]; then
-  install_with_script "oh-my-posh" "https://ohmyposh.dev/install.sh" "-d /usr/local/bin"
+  install_with_script "oh-my-posh" "curl -s https://ohmyposh.dev/install.sh | bash -s -- -d /usr/local/bin"
   install_with_pip "thefuck"
-  install_with_script "zoxide" "https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh" "--bin-dir /usr/local/bin --man-dir /usr/local/share/man"
-  install_with_script "lazygit" "https://raw.githubusercontent.com/flnbrt/dotfiles/main/.config/lazygit/lazygit_installer.sh" "--bin-dir /usr/local/bin"
-  install_with_script "lazydocker" "https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh" "--bin-dir /usr/local/bin"
+  install_with_script "zoxide" "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man"
+  install_with_script "lazygit" "curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/.config/lazygit/lazygit_installer.sh | bash -s -- --bin-dir /usr/local/bin"
+  install_with_script "lazydocker" "curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash"
 fi
 
 # Source/Load Zinit
