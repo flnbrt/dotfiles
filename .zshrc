@@ -1,115 +1,93 @@
 # .zshrc
 # Custom .zshrc for use with various extras
 
-if [[ $(uname) == "Darwin" ]] then
-  if [[ ! -f "/opt/homebrew/bin/brew" ]] then
+# Function to install a tool using Homebrew if not already installed
+install_with_brew() {
+  local tool=$1
+  if ! command -v $tool &>/dev/null; then
+    brew install $tool
+  fi
+}
+
+# Function to install a tool using a script if not already installed
+install_with_script() {
+  local tool=$1
+  local script_url=$2
+  local bin_dir=$3
+  local man_dir=$4
+  if ! command -v $tool &>/dev/null; then
+    if [[ -n "$man_dir" ]]; then
+      curl -sSfL $script_url | bash -s -- --bin-dir $bin_dir --man-dir $man_dir
+    else
+      curl -sSfL $script_url | bash -s -- --bin-dir $bin_dir
+    fi
+  fi
+}
+
+# Function to install a tool using pip if not already installed
+install_with_pip() {
+  local tool=$1
+  if ! command -v $tool &>/dev/null; then
+    pip3 install $tool --user
+  fi
+}
+
+# Homebrew setup for macOS
+if [[ $(uname) == "Darwin" ]]; then
+  if ! command -v brew &>/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
-  # If you're using macOS, you'll want this enabled
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-if [[ -f "/opt/homebrew/opt/openjdk/bin/java" ]] then
-  # Add OpenJDK to PATH for homebrew installations
+# Add OpenJDK to PATH for Homebrew installations
+if [[ -d "/opt/homebrew/opt/openjdk/bin" ]]; then
   export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
   export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
 fi
 
-# Create python venv on linux if it does not exists
-if [[ $(uname) == "Linux" ]] then
-  if [[ ! -f $HOME/.python/bin/python3 ]] then
-      # Create python venv
-      python3 -m venv $HOME/.python --system-site-packages
+# Create Python venv on Linux if it does not exist
+if [[ $(uname) == "Linux" ]]; then
+  if [[ ! -d $HOME/.python/bin ]]; then
+    python3 -m venv $HOME/.python --system-site-packages
   fi
-  # source python venv
   source $HOME/.python/bin/activate
 fi
 
-# Set the directory we want to store zinit and plugins
+# Set the directory for Zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-# Download Zinit, if it's not there yet
-if [ ! -d "$ZINIT_HOME" ]; then
-   mkdir -p "$(dirname $ZINIT_HOME)"
-   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+# Download Zinit if it's not there yet
+if [[ ! -d "$ZINIT_HOME" ]]; then
+  mkdir -p "$(dirname $ZINIT_HOME)"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
-
-# Download and install Oh-My-Posh, if it's not there yet
-if [[ $(uname) == "Darwin" ]] then
-  if [[ ! -f /opt/homebrew/bin/oh-my-posh ]] then
-    # use homebrew
-    brew install oh-my-posh
-  fi
-elif [[ ! -f /usr/local/bin/oh-my-posh ]] then
-    # Install Oh-My-Posh using script
-    curl -s https://ohmyposh.dev/install.sh | sudo bash -s -- -d /usr/local/bin
+# Install tools
+if [[ $(uname) == "Darwin" ]]; then
+  install_with_brew "oh-my-posh"
+  install_with_brew "thefuck"
+  install_with_brew "zoxide"
+  install_with_brew "fzf"
+  install_with_brew "lazygit"
+elif [[ $(uname) == "Linux" ]]; then
+  install_with_script "oh-my-posh" "https://ohmyposh.dev/install.sh" "/usr/local/bin" "/usr/local/share/man"
+  install_with_pip "thefuck"
+  install_with_script "zoxide" "https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh" "/usr/local/bin" "/usr/local/share/man"
+  install_with_script "lazygit" "https://raw.githubusercontent.com/flnbrt/dotfiles/main/.config/lazygit/lazygit_installer.sh" "/usr/local/bin"
+  install_with_script "lazydocker" "https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh" "/usr/local/bin"
 fi
 
-# Download and install thefuck, if it's not there yet
-if [[ $(uname) == "Darwin" ]] then
-  if [[ ! -f /opt/homebrew/bin/thefuck ]] then
-    # use homebrew
-    brew install thefuck
-  fi
-elif [[ ! -f /root/.python/bin/thefuck ]] then
-    # Install thefuck using pip3
-    pip3 install thefuck --user
-fi
-
-# Download and install zoxide, if it's not there yet
-if [[ $(uname) == "Darwin" ]] then
-  if [[ ! -f /opt/homebrew/bin/zoxide ]] then
-    # use homebrew
-    brew install zoxide
-  fi
-elif [[ $(uname) == "Linux" ]] then
-  if [[ ! -f /usr/local/bin/zoxide ]] then
-    # Install zoxide using script
-    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man/
-  fi
-fi
-
-# Download and install fzf, if it's not there yet
-if [[ $(uname) == "Darwin" ]] then
-  if [[ ! -f /opt/homebrew/bin/fzf ]] then
-    # use homebrew
-    brew install fzf
-  fi
-fi
-
-# Download and install lazygit, if it's not there yet
-if [[ $(uname) == "Darwin" ]] then
-  if [[ ! -f /opt/homebrew/bin/lazygit ]] then
-    # use homebrew
-    brew install lazygit
-  fi
-elif [[ $(uname) == "Linux" ]] then
-  if [[ ! -f /usr/local/bin/lazygit ]] then
-    # Install lazygit using custom script
-    curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/.config/lazygit/lazygit_installer.sh | bash -s -- --bin-dir /usr/local/bin
-  fi
-fi
-
-# Download and install lazydocker, if it's not there yet
-if [[ $(uname) == "Linux" ]] then
-  if [[ ! -f /usr/local/bin/lazydocker ]] then
-    # Install lazydocker using script
-    export DIR="/usr/local/bin"
-    curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash 
-  fi
-fi
-
-# Source/Load zinit
+# Source/Load Zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Add in zsh plugins
+# Add Zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
-# Add in snippets
+# Add snippets
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::archlinux
@@ -166,7 +144,7 @@ alias dpsn='docker ps --format "{{.Names}}"'
 alias lgit='lazygit'
 
 # Linux only aliases
-if [[ $(uname) == "Linux" ]] then
+if [[ $(uname) == "Linux" ]]; then
   alias zoxide-update='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man/'
   alias z-update='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man/'
   alias lazygit-updater='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/.config/lazygit/lazygit_installer.sh | bash -s -- --bin-dir /usr/local/bin'
