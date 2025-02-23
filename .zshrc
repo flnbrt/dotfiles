@@ -45,10 +45,7 @@ zinit ice wait lucid
 zinit for \
   OMZP::git \
   OMZP::sudo \
-  OMZP::archlinux \
-  OMZP::aws \
   OMZP::kubectl \
-  OMZP::kubectx \
   OMZP::command-not-found \
   OMZP::thefuck \
   OMZP::1password \
@@ -65,10 +62,9 @@ zinit for \
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/zen.toml)"
 
 # Keybindings
-#bindkey -e
-#bindkey '^p' history-search-backward
-#bindkey '^n' history-search-forward
-#bindkey '^[w' kill-region
+bindkey -M emacs '^^' sudo-command-line
+bindkey -M vicmd '^^' sudo-command-line
+bindkey -M viins '^^' sudo-command-line
 
 # History
 HISTSIZE=5000
