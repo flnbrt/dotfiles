@@ -61,7 +61,7 @@ update_with_brew() {
   echo "#-----------------------------------------------------------------------"
   echo "# Updating $tool via homebrew"
   echo "#-----------------------------------------------------------------------"
-  command -v $tool &>/dev/null || brew upgrade $tool
+  eval "brew upgrade $tool"
 }
 
 # update tools using a script
@@ -72,7 +72,7 @@ update_with_script() {
   echo "#-----------------------------------------------------------------------"
   echo "# Updating $tool via script"
   echo "#-----------------------------------------------------------------------"
-  command -v $tool &>/dev/null || eval "$installer_string"
+  eval "$installer_string"
 }
 
 # update tools using pip
@@ -82,7 +82,7 @@ update_with_pip() {
   echo "#-----------------------------------------------------------------------"
   echo "# Updating $tool via pip"
   echo "#-----------------------------------------------------------------------"
-  command -v $tool &>/dev/null || pip3 install --upgrade $tool
+  eval "pip3 install --upgrade $tool"
 }
 
 #-------------#
