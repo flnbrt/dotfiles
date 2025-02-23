@@ -117,8 +117,8 @@ alias df='df -Ph | grep -v overlay | grep -v loop'
 }
 
 # macOS only aliases
-[[ $(uname) == "Darwin" ]] && {
-  alias 'brew uu'='brew update && brew upgrade'
+[[ $(uname) == "Darwin" ]] && { 
+  alias brewuu='brew update && brew upgrade'
 }
 
 # FZF
