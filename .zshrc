@@ -30,7 +30,8 @@ source "${ZINIT_HOME}/zinit.zsh"
 zinit wait lucid light-mode for \
   Aloxaf/fzf-tab \
   zsh-users/zsh-syntax-highlighting \
-  zsh-users/zsh-autosuggestions
+  zsh-users/zsh-autosuggestions \
+  fdellwing/zsh-bat
 
 zinit for \
     atload"zicompinit; zicdreplay" \
@@ -56,9 +57,9 @@ zinit for \
   OMZP::terraform
 
 # Load completions
-autoload -Uz compinit && compinit
-
-zinit cdreplay -q
+#- commented out because we don't need it anymore -#
+#autoload -Uz compinit && compinit
+#zinit cdreplay -q
 
 # Prompt customization
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/zen.toml)"

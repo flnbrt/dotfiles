@@ -127,6 +127,7 @@ install_package "git"
 install_package "fzf"
 install_package "stow"
 install_package "vim nvim"
+install_package "bat"
 
 ################################
 # Cloning of GitHub repository #
