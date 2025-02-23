@@ -27,55 +27,27 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 source "${ZINIT_HOME}/zinit.zsh"
 
 # Plugins
-zinit ice wait lucid
-zinit light zsh-users/zsh-syntax-highlighting
-
-zinit ice wait lucid
-zinit light zsh-users/zsh-completions
-
-zinit ice wait lucid
-zinit light zsh-users/zsh-autosuggestions
-
-zinit ice wait lucid
-zinit light Aloxaf/fzf-tab
+zinit wait lucid light-mode for \
+  zsh-users/zsh-syntax-highlighting \
+  zsh-users/zsh-completions \
+  zsh-users/zsh-autosuggestions \
+  Aloxaf/fzf-tab
 
 # Snippets
 zinit ice wait lucid
-zinit snippet OMZP::git
-
-zinit ice wait lucid
-zinit snippet OMZP::sudo
-
-zinit ice wait lucid
-zinit snippet OMZP::archlinux
-
-zinit ice wait lucid
-zinit snippet OMZP::aws
-
-zinit ice wait lucid
-zinit snippet OMZP::kubectl
-
-zinit ice wait lucid
-zinit snippet OMZP::kubectx
-
-zinit ice wait lucid
-zinit snippet OMZP::command-not-found
-
-zinit ice wait lucid
-zinit snippet OMZP::thefuck
-
-zinit ice wait lucid
-zinit snippet OMZP::1password
-
-zinit ice wait lucid
-zinit snippet OMZP::docker
-
-zinit ice wait lucid
-zinit snippet OMZP::docker-compose
-
-zinit ice wait lucid
-zinit snippet OMZP::terraform
-
+zinit for \
+  OMZP::git \
+  OMZP::sudo \
+  OMZP::archlinux \
+  OMZP::aws \
+  OMZP::kubectl \
+  OMZP::kubectx \
+  OMZP::command-not-found \
+  OMZP::thefuck \
+  OMZP::1password \
+  OMZP::docker \
+  OMZP::docker-compose \
+  OMZP::terraform
 
 # Load completions
 autoload -Uz compinit && compinit
