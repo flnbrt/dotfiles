@@ -99,6 +99,7 @@ alias vi='nvim'
 alias vim='nvim'
 alias c='clear'
 alias dpsn='docker ps --format "{{.Names}}"'
+alias lg='lazygit'
 alias lgit='lazygit'
 alias run-dotfiles-installer='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/install_dotfiles.sh | bash'
 alias run-dotfiles-updater='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/update_dotfiles.sh | bash'
@@ -107,13 +108,9 @@ alias df='df -Ph | grep -v overlay | grep -v loop'
 
 # Linux only aliases
 [[ $(uname) == "Linux" ]] && {
-  alias zoxide-update='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man/'
-  alias z-update='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir /usr/local/bin --man-dir /usr/local/share/man/'
-  alias lazygit-updater='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/install_update_lazygit.sh | bash -s -- --bin-dir /usr/local/bin'
-  alias lgit-updater='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/install_update_lazygit.sh | bash -s -- --bin-dir /usr/local/bin'
+  alias ldocker='lazydocker'
   alias lzd='lazydocker'
-  alias lazydocker-update='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
-  alias lzd-update='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
+  alias ld='lazydocker'
 }
 
 # macOS only aliases
