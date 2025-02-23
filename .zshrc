@@ -28,10 +28,16 @@ source "${ZINIT_HOME}/zinit.zsh"
 
 # Plugins
 zinit wait lucid light-mode for \
+  Aloxaf/fzf-tab \
   zsh-users/zsh-syntax-highlighting \
-  zsh-users/zsh-completions \
-  zsh-users/zsh-autosuggestions \
-  Aloxaf/fzf-tab
+  zsh-users/zsh-autosuggestions
+
+zinit for \
+    atload"zicompinit; zicdreplay" \
+    blockf \
+    lucid \
+    wait \
+  zsh-users/zsh-completions
 
 # Snippets
 zinit ice wait lucid
