@@ -116,6 +116,11 @@ alias df='df -Ph | grep -v overlay | grep -v loop'
   alias lzd-update='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
 }
 
+# macOS only aliases
+[[ $(uname) == "Darwin" ]] && {
+  alias 'brew uu'='brew update && brew upgrade'
+}
+
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
