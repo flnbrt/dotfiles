@@ -93,13 +93,17 @@ setopt globdots
 
 # Aliases
 alias ls='eza'
+alias l='eza -la'
+alias ll='eza -la -sold'
 alias vi='nvim'
 alias vim='nvim'
 alias c='clear'
 alias dpsn='docker ps --format "{{.Names}}"'
 alias lgit='lazygit'
 alias run-dotfiles-installer='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/install_dotfiles.sh | bash'
+alias run-dotfiles-updater='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/update_dotfiles.sh | bash'
 alias stow-dotfiles='stow . --adopt -d $HOME/dotfiles/ -t $HOME --ignore="^installer$" --verbose=2'
+alias df='df -Ph | grep -v overlay | grep -v loop'
 
 # Linux only aliases
 [[ $(uname) == "Linux" ]] && {
