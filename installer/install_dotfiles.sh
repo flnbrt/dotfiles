@@ -6,13 +6,21 @@ PACKAGE_MANAGER=""
 # Helper functions #
 ####################
 
-# Get package manager
-get_package_manager() {
+# setup package manager
+setup_package_manager() {
     if [ $(uname) == "Darwin" ]; then
       PACKAGE_MANAGER="brew install"
     else
       if command -v apt &>/dev/null; then
           PACKAGE_MANAGER="apt install -y"
+          # add packages
+          if [[ ! -f /etc/apt/sources.list.d/gierens.list ]]; then
+            eval "sudo mkdir -p /etc/apt/keyrings"
+            eval "wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg"
+            eval "echo 'deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main' | sudo tee /etc/apt/sources.list.d/gierens.list"
+            eval "sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list"
+          fi
+          eval "sudo apt update"
       elif command -v dnf &>/dev/null; then
           PACKAGE_MANAGER="dnf install -y"
       elif command -v yum &>/dev/null; then
@@ -35,7 +43,16 @@ install_package() {
   echo "#-----------------------------------------------------------------------"
   echo "# Installing $package"
   echo "#-----------------------------------------------------------------------"
-  eval "$PACKAGE_MANAGER $package"
+  if [[ "$package" == "fzf" && "$(uname)" != "Darwin" ]]; then
+    if [[ ! -d $HOME/.fzf/ ]]; then
+      eval "git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf"
+    else
+      eval "git -C $HOME/.fzf pull"
+    fi
+    eval "$HOME/.fzf/install --key-bindings --completion --no-update-rc"
+  else
+    eval "$PACKAGE_MANAGER $package"
+  fi
 }
 
 # stow config files
@@ -83,7 +100,7 @@ install_with_pip() {
 # Main Script #
 #-------------#
 
-get_package_manager
+setup_package_manager
 
 ###########################
 # change shell to zsh and #
@@ -126,7 +143,8 @@ install_package "curl"
 install_package "git"
 install_package "fzf"
 install_package "stow"
-install_package "vim nvim"
+install_package "vim neovim"
+install_package "eza"
 install_package "bat"
 
 ################################
