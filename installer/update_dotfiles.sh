@@ -137,6 +137,7 @@ if [ ! -L "$HOME/.zshrc" ]; then
     echo "Successfully stowed all dotfiles."
   else
     echo "stow command failed. Please stow dotfiles manually."
+    echo "'stow . --adopt -d $HOME/dotfiles/ -t $HOME --ignore="^installer$" --verbose=2'"
     exit 1
   fi
 fi
@@ -149,9 +150,9 @@ fi
 [[ $(uname) == "Linux" && ! -d $HOME/.python/bin ]] && python3 -m venv $HOME/.python --system-site-packages
 [[ -f $HOME/.python/bin/activate ]] && source $HOME/.python/bin/activate
 
-#############################
-# Install tools via scripts #
-#############################
+############################
+# Update tools via scripts #
+############################
 
 # Other tools
 if [[ $(uname) == "Darwin" ]]; then
