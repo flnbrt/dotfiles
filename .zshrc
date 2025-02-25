@@ -88,9 +88,9 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $real
 setopt globdots
 
 # Aliases
-alias ls='eza'
-alias l='eza -la'
-alias ll='eza -la -sold'
+alias ls='eza --icons=always'
+alias l='eza -la --icons=always'
+alias ll='eza -la -snew --icons=always'
 alias vi='nvim'
 alias vim='nvim'
 alias c='clear'
