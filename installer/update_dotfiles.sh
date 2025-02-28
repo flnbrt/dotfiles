@@ -104,6 +104,8 @@ update_package "stow"
 update_package "vim neovim"
 update_package "eza"
 update_package "bat"
+update_package "ripgrep"
+update_package "fd"
 
 ################################
 # Pulling of GitHub repository #

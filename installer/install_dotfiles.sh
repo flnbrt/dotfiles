@@ -146,6 +146,8 @@ install_package "stow"
 install_package "vim neovim"
 install_package "eza"
 install_package "bat"
+install_package "ripgrep"
+install_package "fd"
 
 ################################
 # Cloning of GitHub repository #
