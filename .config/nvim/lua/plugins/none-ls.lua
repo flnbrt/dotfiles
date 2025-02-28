@@ -7,7 +7,6 @@ return {
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.formatting.prettier,
         null_ls.builtins.diagnostics.yamllint,
-        null_ls.builtins.diagnostics.sonarlint_language_server,
       },
     })
 
