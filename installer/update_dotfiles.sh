@@ -139,7 +139,7 @@ if [ ! -L "$HOME/.zshrc" ]; then
     echo "Successfully stowed all dotfiles."
   else
     echo "stow command failed. Please stow dotfiles manually."
-    echo "'stow . --adopt -d $HOME/dotfiles/ -t $HOME --ignore="^installer$" --verbose=2'"
+    echo "'stow . --adopt -d $HOME/dotfiles/ -t $HOME --ignore="^(installer|windows)$" --verbose=2'"
     exit 1
   fi
 fi

@@ -99,7 +99,7 @@ alias lg='lazygit'
 alias lgit='lazygit'
 alias run-dotfiles-installer='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/install_dotfiles.sh | bash'
 alias run-dotfiles-updater='curl -sSfL https://raw.githubusercontent.com/flnbrt/dotfiles/main/installer/update_dotfiles.sh | bash'
-alias stow-dotfiles='stow . --adopt -d $HOME/dotfiles/ -t $HOME --ignore="^installer$" --verbose=2'
+alias stow-dotfiles='stow . --adopt -d $HOME/dotfiles/ -t $HOME --ignore="^(installer|windows)$" --verbose=2'
 alias df='df -Ph | grep -v overlay | grep -v loop'
 
 # Linux only aliases
