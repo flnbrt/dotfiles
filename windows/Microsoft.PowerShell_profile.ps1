@@ -43,7 +43,7 @@ function Update-Profile {
             Invoke-WebRequest -Uri $url -OutFile $PROFILE -UseBasicParsing
             Write-Host "Profile Updated Successfully!"
         } else {
-            Write-Host "PowerShell Profile is up to date."
+            Write-Host "PowerShell Profile Already up to date."
         }
     } catch {
         Write-Host "Failed to update PowerShell Profile: $_"
@@ -59,8 +59,7 @@ function Update-Profile {
             git clone https://github.com/flnbrt/dotfiles.git $dotfilesDir
             New-Item -Path $localNvimConfig -ItemType SymbolicLink -Value $dotfilesNvimConfig -Force
         } else {
-            Write-Host "Dotfiles Repository " -NoNewline
-            git -C $dotfilesDir pull
+            Write-Host "Dotfiles Repository " -NoNewline; git -C $dotfilesDir pull
         }
     } catch {
         Write-Host "Failed to update Neovim configuration: $_"
