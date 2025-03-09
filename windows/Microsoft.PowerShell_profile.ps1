@@ -51,11 +51,16 @@ function Update-Profile {
 #   Update Neovim configuration
     try {
         # Link nvim configuration files
+        $dotfilesDir = [Environment]::GetFolderPath("MyDocuments") + "\Github\dotfiles"
         $localNvimConfig = Join-Path $env:LOCALAPPDATA "nvim"
         $dotfilesNvimConfig = Join-Path $dotfilesDir ".config" "nvim"
 
-        Write-Host "Creating Symbolic Link to nvim configuration..."
-        New-Item -Path $localNvimConfig -ItemType SymbolicLink -Value $dotfilesNvimConfig -Force
+        if (!((Get-Item $localNvimConfig).Attributes -match "ReparsePoint")) {
+            git clone https://github.com/flnbrt/dotfiles.git $dotfilesDir
+            New-Item -Path $localNvimConfig -ItemType SymbolicLink -Value $dotfilesNvimConfig -Force
+        } else {
+            git -C $dotfilesDir pull
+        }
     } catch {
         Write-Host "Failed to update Neovim configuration: $_"
     }
