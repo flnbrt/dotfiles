@@ -59,6 +59,7 @@ function Update-Profile {
             git clone https://github.com/flnbrt/dotfiles.git $dotfilesDir
             New-Item -Path $localNvimConfig -ItemType SymbolicLink -Value $dotfilesNvimConfig -Force
         } else {
+            Write-Host "Dotfiles Repository " -NoNewline
             git -C $dotfilesDir pull
         }
     } catch {
