@@ -33,8 +33,10 @@ if (Test-Path $ChocolateyProfile) {
 function Update-Profile {
     try {
         $url = "https://raw.githubusercontent.com/flnbrt/dotfiles/main/windows/Microsoft.PowerShell_profile.ps1"
-        $currentHash = (Get-FileHash -Path $PROFILE).Hash
-        $remoteHash = (Invoke-WebRequest -Uri $url).Content | Get-FileHash -Algorithm SHA256 | Select-Object -ExpandProperty Hash
+        $currentHash = (Get-FileHash -Path $PROFILE -Algorithm SHA256).Hash
+        $response = Invoke-WebRequest -Uri $url -UseBasicParsing
+        $stream = [System.IO.MemoryStream]::new([System.Text.Encoding]::UTF8.GetBytes($response.Content))
+        $remoteHash = (Get-FileHash -InputStream $stream -Algorithm SHA256).Hash
         if ($currentHash -ne $remoteHash) {
             Write-Host "Updating PowerShell Profile..."
             Invoke-WebRequest -Uri $url -OutFile $PROFILE -UseBasicParsing
