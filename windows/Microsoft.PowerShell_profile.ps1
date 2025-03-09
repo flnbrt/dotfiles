@@ -1,5 +1,5 @@
 # PowerShell Profile
-# Version 1.00
+# Version 1.01
 
 # Aliases
 Set-Alias -Name "vi" -Value "nvim"
