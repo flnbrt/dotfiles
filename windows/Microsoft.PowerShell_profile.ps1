@@ -61,6 +61,7 @@ function Update-Profile {
         }
 
         if (!((Get-Item $localNvimConfig).Attributes -match "ReparsePoint")) {
+            Write-Host "Linking Neovim configuration."
             New-Item -Path $localNvimConfig -ItemType SymbolicLink -Value $dotfilesNvimConfig -Force
         }
         Write-Host "Dotfiles Repository " -NoNewline; git -C $dotfilesDir pull
