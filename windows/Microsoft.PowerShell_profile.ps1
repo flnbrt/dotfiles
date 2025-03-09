@@ -31,6 +31,7 @@ if (Test-Path $ChocolateyProfile) {
 
 # Check for Profile Updates
 function Update-Profile {
+#   Update PowerShell Profile
     try {
         $url = "https://raw.githubusercontent.com/flnbrt/dotfiles/main/windows/Microsoft.PowerShell_profile.ps1"
         $currentHash = (Get-FileHash -Path $PROFILE -Algorithm SHA256).Hash
@@ -46,6 +47,17 @@ function Update-Profile {
         }
     } catch {
         Write-Host "Failed to update PowerShell Profile: $_"
+    }
+#   Update Neovim configuration
+    try {
+        # Link nvim configuration files
+        $localNvimConfig = Join-Path $env:LOCALAPPDATA "nvim"
+        $dotfilesNvimConfig = Join-Path $dotfilesDir ".config" "nvim"
+
+        Write-Host "Creating Symbolic Link to nvim configuration..."
+        New-Item -Path $localNvimConfig -ItemType SymbolicLink -Value $dotfilesNvimConfig -Force
+    } catch {
+        Write-Host "Failed to update Neovim configuration: $_"
     }
 }
 
