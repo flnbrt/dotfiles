@@ -60,7 +60,7 @@ stow_files() {
   # double check if dotfiles really need to get stowed...
   if ! grep -q "# Custom .zshrc for use with various extras" "$HOME/.zshrc" &>/dev/null; then
     echo "Stowing files..."
-    stow . --adopt -d $HOME/dotfiles/ -t $HOME --ignore='^installer$'
+    stow . --adopt -d "$HOME/dotfiles/" -t "$HOME" --ignore='^(installer|windows)$' --verbose=2
     git -C $HOME/dotfiles reset --hard &>/dev/null
   fi
 }
