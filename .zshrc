@@ -107,6 +107,7 @@ alias df='df -Ph | grep -v overlay | grep -v loop'
   alias ldocker='lazydocker'
   alias lzd='lazydocker'
   alias ld='lazydocker'
+  alias docker_useradd='useradd --no-create-home --no-user-group --shell /usr/sbin/nologin --home-dir /root/docker --groups docker_data --uid'
 }
 
 # macOS only aliases
