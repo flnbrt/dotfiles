@@ -8,6 +8,11 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+-- use operating system Input Method Editor
+-- and allow the left modifier keys on macOS
+config.use_ime = true
+config.send_composed_key_when_left_alt_is_pressed = true
+
 -- fonts
 config.font = wezterm.font 'Hack Nerd Font Mono'
 config.font_size = 14
