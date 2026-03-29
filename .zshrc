@@ -124,6 +124,11 @@ export FZF_DEFAULT_OPTS=" \
 --color=selected-bg:#45475a \
 --multi"
 
+# Kubernetes Stuff
+[[ $(which argocd) ]] && {
+  eval $(argocd completion zsh)
+}
+
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
